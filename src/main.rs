@@ -1,5 +1,41 @@
 use ggez::{conf, event, Context, GameResult};
 use std::path;
+use specs::{Builder, Component, VecStorage, World, WorldExt};
+
+
+#![allow(unused)]
+fn main() {
+#[derive(Debug, Component, Clone, Copy)]
+#[storage(VecStorage)]
+pub struct Position {
+    x: u8,
+    y: u8,
+    z: u8,
+}
+
+#[derive(Component)]
+#[storage(VecStorage)]
+pub struct Renderable {
+    path: String,
+}
+
+#[derive(Component)]
+#[storage(VecStorage)]
+pub struct Wall {}
+
+#[derive(Component)]
+#[storage(VecStorage)]
+pub struct Player {}
+
+#[derive(Component)]
+#[storage(VecStorage)]
+pub struct Box {}
+
+#[derive(Component)]
+#[storage(VecStorage)]
+pub struct BoxSpot {}
+
+}
 
 // This struct will hold all our game state
 // For now there is nothing to be held, but we'll add
@@ -21,6 +57,16 @@ impl event::EventHandler<ggez::GameError> for Game {
         Ok(())
     }
 }
+
+pub fn register_components(world: &mut World) {
+    world.register::<Position>();
+    world.register::<Renderable>();
+    world.register::<Player>();
+    world.register::<Wall>();
+    world.register::<Box>();
+    world.register::<BoxSpot>();
+}
+
 
 pub fn main() -> GameResult {
     // Create a game context and event loop
